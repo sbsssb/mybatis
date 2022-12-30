@@ -20,6 +20,7 @@ public class Employee {
 	private String managerId;
 	private Date hireDate;
 	private Date entDate;
-	private char EntYn;
+	private char entYn;
+	private String gender;
 
 }

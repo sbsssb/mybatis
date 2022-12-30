@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.emp.model.dao.EmpDao;
+import com.emp.model.vo.Department;
 import com.emp.model.vo.Employee;
 
 public class EmpService {
@@ -34,6 +35,16 @@ public class EmpService {
 		
 		session.close();
 		return result;
+	}
+	
+	public Department selectDept(String deptId) {
+		
+		SqlSession session=getSession();
+		Department d=dao.selectDept(session, deptId);
+		
+		session.close();
+		return d;
+		
 	}
 
 }

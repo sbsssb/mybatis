@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>사원조회결과</title>
 </head>
 <body>
 	<h2>사원조회결과</h2>
@@ -44,6 +44,27 @@
 					<label><input type="radio" name="salFlag" value="le">이하</label>
 				</td>
 			</tr>
+			
+			<tr>
+				<td>입사일</td>
+				<td>
+					<input type="date" name="hiredate">
+					<label><input type="radio" name="hireFlag" value="ge">이상</label>
+					<label><input type="radio" name="hireFlag" value="le">이하</label>
+				</td>
+			</tr>
+			<tr>
+				<td>직책조회</td>
+				<td>
+					<label><input type="checkbox" name="job" value="J1">대표</label>
+					<label><input type="checkbox" name="job" value="J2">부사장</label>
+					<label><input type="checkbox" name="job" value="J3">부장</label>
+					<label><input type="checkbox" name="job" value="J4">차장</label>
+					<label><input type="checkbox" name="job" value="J5">과장</label>
+					<label><input type="checkbox" name="job" value="J6">대리</label>
+					<label><input type="checkbox" name="job" value="J7">사원</label>					
+				</td>
+			</tr>
 			<tr>
 				<td colspan="2">
 					<input type="submit" value="조회"/>
@@ -51,21 +72,21 @@
 			</tr>
 		</table>
 	</form>
-	
 	<table>
 		<tr>
-			<th>번호</th>
-			<th>이름</th>
+			<th>사원번호</th>
+			<th>사원이름</th>
 			<th>주민번호</th>
 			<th>이메일</th>
 			<th>전화번호</th>
 			<th>부서코드</th>
-			<th>직급코드</th>
-			<th>연봉레벨</th>
+			<th>직책코드</th>
+			<th>급여레벨</th>
 			<th>급여</th>
 			<th>보너스</th>
-			<th>매니저ID</th>
+			<th>매니저아이디</th>
 			<th>입사일</th>
+			<th>성별</th>
 		</tr>
 		<c:choose>
 			<c:when test="${empty employees }">
@@ -81,7 +102,11 @@
 						<td><c:out value="${e.empNo }"/></td>
 						<td><c:out value="${e.email }"/></td>
 						<td><c:out value="${e.phone }"/></td>
-						<td><c:out value="${e.deptCode }"/></td>
+						<td>
+						<%-- <c:out value="${e.deptCode }"/> --%>
+							<c:out value="${e.dept.deptId }"/> 
+							<c:out value="${e.dept.deptTitle }"/>
+						</td>
 						<td><c:out value="${e.jobCode }"/></td>
 						<td><c:out value="${e.salLevel }"/></td>
 						<td>
@@ -95,33 +120,15 @@
 							<fmt:formatDate value="${e.hireDate }"
 							type="both" pattern="yyyy/MM/dd E HH:mm"/>
 						</td>
+						<td>
+							<c:out value="${e.gender=='M'?'남':'여' }"/>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
-		<%-- <c:if test="${empty employees }">
-			<tr>
-				<td colspan="14">조회된 사원이 없습니다.</td>
-			</tr>
-		</c:if>
-		<c:if test="${not empty employees }">
-			<c:forEach var="emp" items="${employees }">
-				<tr>
-					<td><c:out value="${emp['EMP_ID'] }"/></td>
-					<td><c:out value="${emp['EMP_NAME'] }"/></td>
-					<td><c:out value="${emp['EMP_NO'] }"/></td>
-					<td><c:out value="${emp['EMAIL'] }"/></td>
-					<td><c:out value="${emp['PHONE'] }"/></td>
-					<td><c:out value="${emp['DEPT_CODE'] }"/></td>
-					<td><c:out value="${emp['JOB_CODE'] }"/></td>
-					<td><c:out value="${emp['SAL_LEVEL'] }"/></td>
-					<td><fmt:formatNumber value="${emp['SALARY'] }" type="currency"/></td>
-					<td><fmt:formatNumber value="${emp['BONUS'] }" type="percent"/></td>
-					<td><c:out value="${emp['MANAGER_ID'] }"/></td>
-					<td><fmt:formatDate value="${emp['HIRE_DATE'] }" type="both" pattern="yyyy/MM/dd E HH:mm"/></td>
-				</tr>
-			</c:forEach>
-		</c:if> --%>
 	</table>
+
+
 </body>
 </html>

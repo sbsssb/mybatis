@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
+import com.emp.model.vo.Department;
 import com.emp.model.vo.Employee;
 
 public class EmpDao {
@@ -19,6 +20,12 @@ public class EmpDao {
 	public List<Employee> searchEmp(SqlSession session, Map<String, Object> param) {
 		
 		return session.selectList("emp.searchEmp", param);
+		
+	}
+	
+	public Department selectDept(SqlSession session, String deptId) {
+		
+		return session.selectOne("emp.selectDept", deptId);
 		
 	}
 
